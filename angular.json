@@ -39,27 +39,29 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "ngx-build-plus:browser",
           "options": {
-            "outputPath": "dist/dev-tech-w7-website",
+            "stylePreprocessorOptions": {
+              "includePaths": ["./src/app/shared/styles"]
+            },
+            "extraWebpackConfig": "./extra-webpack.config.js",
+            "outputPath": "dist/",
             "index": "src/index.html",
-            "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "main": "src/main.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -83,7 +85,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "devTechW7Website:build:production"
@@ -95,12 +97,15 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "ngx-build-plus:extract-i18n",
           "options": {
             "buildTarget": "devTechW7Website:build"
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "8b6c1d8d-104d-433d-be99-6c2b348e6130"
   }
 }
